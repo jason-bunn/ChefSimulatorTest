@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour, IActor
 
     public void EmitAction(string name, IActor actor)
     {
+        Debug.Log("Emitting Action from player " + playerNumber + " " + name);
         GameEventManager.DispatchEvent(name, this);
     }
 
