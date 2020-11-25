@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IActor
 {
-    void ReceiveAction(IActor actor);
-    void EmitAction(IActor actor);
+    void ReceiveAction(string name, IActor actor);
+    void EmitAction(string name, IActor actor);
+    string GetName();
 }

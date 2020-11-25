@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour, IActor
 
     public int playerNumber = 1;
     public float moveSpeed = 10f;
+    public GameObject progressBar;
+    private PlayerInventory m_inventory;
 
     private string m_HorizontalAxisName = "";
     private string m_VerticalAxisName = "";
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour, IActor
             hatMat.color = Color.green;
             m_hat.material = hatMat;
         }
+
+        m_inventory = GetComponent<PlayerInventory>();
     }
 
     // Update is called once per frame
@@ -44,7 +48,7 @@ public class PlayerController : MonoBehaviour, IActor
 
         if(Input.GetButtonDown("Action_"+playerNumber))
         {
-            EmitAction(this);
+            EmitAction("Player_" + playerNumber + "_Action", this);
         }
     }
 
@@ -60,13 +64,23 @@ public class PlayerController : MonoBehaviour, IActor
         m_Rigidbody.MovePosition(m_Rigidbody.position + moveDir);
     }
 
-    public void ReceiveAction(IActor actor)
+    public void ReceiveAction(string eventName, IActor actor)
     {
         throw new System.NotImplementedException();
     }
 
-    public void EmitAction(IActor actor)
+    public void EmitAction(string name, IActor actor)
     {
-        throw new System.NotImplementedException();
+        GameEventManager.DispatchEvent(name, this);
+    }
+
+    public PlayerInventory GetInventory()
+    {
+        return m_inventory;
+    }
+
+    public string GetName()
+    {
+        return "Player_" + playerNumber;
     }
 }

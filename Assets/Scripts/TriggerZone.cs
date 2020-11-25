@@ -6,8 +6,7 @@ using UnityEngine.Events;
 public class TriggerZone : MonoBehaviour
 {
 
-    public UnityEvent<int> fireOnAction;
-
+    public IActor actorInZone;
 
     private bool m_PlayerInZone = false;
     // Start is called before the first frame update
@@ -27,11 +26,17 @@ public class TriggerZone : MonoBehaviour
         if (m_PlayerInZone)
             return;
         m_PlayerInZone = true;
+        actorInZone = other.gameObject.GetComponent<PlayerController>();
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (m_PlayerInZone)
+        {
             m_PlayerInZone = false;
+            actorInZone = null;
+            
+        }
+            
     }
 }
