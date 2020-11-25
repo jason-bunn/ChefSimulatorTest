@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody m_Rigidbody;
 
+    private MeshRenderer m_hat;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,14 @@ public class PlayerController : MonoBehaviour
 
         m_HorizontalAxisName = "Horizontal_" + playerNumber;
         m_VerticalAxisName = "Vertical_" + playerNumber;
+        m_hat = transform.Find("Hat").GetComponent<MeshRenderer>();
+
+        if(playerNumber == 2)
+        {
+            Material hatMat = m_hat.material;
+            hatMat.color = Color.green;
+            m_hat.material = hatMat;
+        }
     }
 
     // Update is called once per frame
