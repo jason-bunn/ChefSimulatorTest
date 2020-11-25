@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IActor
 {
-    public delegate void GameAction(PlayerController player);
-
-    public event GameAction FireAction;
+    
 
     public int playerNumber = 1;
     public float moveSpeed = 10f;
@@ -46,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetButtonDown("Action_"+playerNumber))
         {
-            FireAction(this);
+            EmitAction(this);
         }
     }
 
@@ -60,5 +58,15 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = new Vector3(m_HorizontalInput, 0, m_VerticalInput) * moveSpeed * Time.deltaTime;
 
         m_Rigidbody.MovePosition(m_Rigidbody.position + moveDir);
+    }
+
+    public void ReceiveAction(IActor actor)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void EmitAction(IActor actor)
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Customer : MonoBehaviour
 {
-
+    public Text plateText;
     public SaladIngredient[] order;
+
+    public float maxWaitTime;
 
     private void OnEnable()
     {
+        maxWaitTime = Random.Range(15.0f, 40.0f);
         GenerateOrder();
     }
 
@@ -20,7 +24,13 @@ public class Customer : MonoBehaviour
         {
             int randomIngredient = Random.Range(1, 7);
             order[i] = (SaladIngredient)randomIngredient;
+
+            plateText.text += order[i].ToString();
+            if (i < numItems - 1)
+                plateText.text += ",";
         }
+
+        
     }
 
     public SaladIngredient[] GetOrder()
