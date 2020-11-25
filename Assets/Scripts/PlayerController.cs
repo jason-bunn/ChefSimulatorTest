@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public delegate void GameAction(PlayerController player);
+
+    public event GameAction FireAction;
+
     public int playerNumber = 1;
     public float moveSpeed = 10f;
 
@@ -39,6 +43,11 @@ public class PlayerController : MonoBehaviour
     {
         m_HorizontalInput = Input.GetAxis(m_HorizontalAxisName);
         m_VerticalInput = Input.GetAxis(m_VerticalAxisName);
+
+        if(Input.GetButtonDown("Action_"+playerNumber))
+        {
+            FireAction(this);
+        }
     }
 
     private void FixedUpdate()
